@@ -29,7 +29,7 @@ mysqlPasswd = "MEDIAWIKI DATABASE PASSWORD"
 
 # Set these to true to delete everything in the mediawiki database
 deleteEverything = False
-yesReallyDeleteEveryting = False
+yesReallyDeleteEverything = False
 
 # Mapping of TWiki names to Mediawiki names, overrides the name converter
 nameMapping = {
