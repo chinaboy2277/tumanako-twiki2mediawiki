@@ -151,6 +151,8 @@ for f in r.listfiles():
 	#if (not f.startswith("WebHome")):
 	#	continue
 	twikiName = f.split(".")[0]
+	if (twikiName in local.skipPages):
+		continue
 	title = camelCaseToMediawiki(twikiName)
 	i = r.info(f)
 	total = int(i['total revisions'])

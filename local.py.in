@@ -46,4 +46,7 @@ skipAuthors = {
 	"TWikiContributor": True
 }
 
+# Skip these pages
+skipPages = [
+]
 
