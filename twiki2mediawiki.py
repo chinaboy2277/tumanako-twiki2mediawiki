@@ -179,7 +179,7 @@ for f in r.listfiles():
 		(authorId, author) = local.authorMapping[twikiAuthor]
 		c.execute("insert into text (old_text, old_flags) values (%s, 'utf-8')", (text));
 		text_id = c.lastrowid
-		c.execute("insert into revision (rev_page, rev_text_id, rev_user, rev_user_text, rev_timestamp, rev_len, rev_parent_id, rev_comment) values (%s, %s, %s, %s, %s, %s, %s, %s)", (page_id, text_id, authorId, author, dateString, length, parent_id, "Imported from TWiki by fromTwiki.py"))
+		c.execute("insert into revision (rev_page, rev_text_id, rev_user, rev_user_text, rev_timestamp, rev_len, rev_parent_id, rev_comment) values (%s, %s, %s, %s, %s, %s, %s, %s)", (page_id, text_id, authorId, author, dateString, length, parent_id, "Imported from TWiki by twiki2mediawiki.py"))
 		parent_id = c.lastrowid
 	c.execute("update page set page_touched=%s, page_latest=%s, page_len=%s where page_id=%s", (dateString, parent_id, length, page_id))
 	meta = parseMeta(metaText)
