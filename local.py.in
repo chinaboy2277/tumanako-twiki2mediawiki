@@ -31,14 +31,14 @@ mysqlPasswd = "MEDIAWIKI DATABASE PASSWORD"
 deleteEverything = False
 yesReallyDeleteEverything = False
 
-# Mapping of TWiki names to Mediawiki names, overrides the name converter
+# Mapping of TWiki page names to Mediawiki page names, overrides the name converter
 nameMapping = {
 	"WebHome" : "Main_Page",
 }
 
-# Mapping of TWiki authors to Mediawiki authors, does not create authors in mediawiki
+# Mapping of TWiki authors to Mediawiki authors, creates them with this id if they don't exist
 authorMapping = {
-	"TomParker" : (2, "Carrott"), 
+	"TomParker" : "Carrott",
 }
 
 # Skip these authors (what happens to them??)

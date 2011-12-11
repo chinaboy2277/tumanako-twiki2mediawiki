@@ -130,6 +130,15 @@ def copyAttachments(topic, attachments):
 		shutil.copyfile(twikiFile, mediawikiFile)
 		c.execute("insert into image (img_name, img_description, img_metadata, img_timestamp, img_sha1, img_size) values (%s, %s, 0, %s, 0, %s)", (attachment["name"], attachment["comment"], dateString, attachment["size"]))
 
+def updateUser(author):
+	c.execute("select user_id from user where user_name = %s", author)
+	for row in c:
+		print "%s %s" % (author, row[0])
+		return row[0]
+	# nothing in the database
+	c.execute("insert into user (user_name, user_touched) values (%s, %s)", (author, 0))
+	return c.lastrowid
+
 c = con.cursor()
 
 c.execute("SET NAMES utf8")
@@ -176,7 +185,10 @@ for f in r.listfiles():
 		dateString = date.strftime("%Y%m%d%H%M%S")
 		if (local.skipAuthors.has_key(twikiAuthor)):
 			continue
-		(authorId, author) = local.authorMapping[twikiAuthor]
+		author = local.authorMapping.get(twikiAuthor)
+		if author == None:
+			author = twikiAuthor
+		authorId = updateUser(author)
 		c.execute("insert into text (old_text, old_flags) values (%s, 'utf-8')", (text));
 		text_id = c.lastrowid
 		c.execute("insert into revision (rev_page, rev_text_id, rev_user, rev_user_text, rev_timestamp, rev_len, rev_parent_id, rev_comment) values (%s, %s, %s, %s, %s, %s, %s, %s)", (page_id, text_id, authorId, author, dateString, length, parent_id, "Imported from TWiki by twiki2mediawiki.py"))
